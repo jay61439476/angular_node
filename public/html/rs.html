@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="rsApp" ng-controller="mainCtrl">
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" href="../lib/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div ng-controller="mainDivCtrl" class="container">
+        <div class="row">
+            <div class="col-md-1">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr><th>Ope</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ope in opes">
+                            <td ng-click="getLotByOpe($index)">{{ope}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr><th>Lot ID</th><th>Date time</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="lot in lots">
+                            <td>{{lot.short_lot_id}}</td>
+                            <td>{{lot.max_date_time}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Glass ID</th>
+                            <th>Oper</th>
+                            <th>Date time</th>
+                            <th>User</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="glass in glassList">
+                        <td>{{lot.short_lot_id}}</td>
+                        <td>{{lot.max_date_time}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../lib/angular.min.js"></script>
+    <script src="../lib/jquery/jquery-1.10.2.min.js"></script>
+    <script src="../lib/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../javascripts/rs.js"></script>
+</body>
+</html>
