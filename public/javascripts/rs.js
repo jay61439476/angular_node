@@ -9,40 +9,35 @@ rsAppModule.controller('mainCtrl', function($scope){
 });
 
 rsAppModule.controller('mainDivCtrl', function($http, $scope){
-//    $.post("http://localhost:8070/getOpeList.json",{
-//        'beginTime': '140112070000',
-//        'endTime'  : '140113135835'  ,
-//        'eqptType' : 'AOIH'
-//    }, function(data) {
-//        alert(data);
-//    }, 'json');
+    $scope.opes = [];
+    $http.get("/getOpeList", {
+        'beginTime': '140117070000',
+        'endTime'  : '140117200000'  ,
+        'eqptType' : 'AOIH'
+    })
+    .success(function(data, status, headers, config){
+        $scope.opes = data;
+    }).error(function(data, status, headers, config){
+        console.log("error [%s].", data);
+    });
 
-//    $http.post("http://localhost:8070/getOpeList.json",{
-//        beginTime : "140112070000",
-//        endTime : "140113135835",
-//        eqptType : "AOIH"
-//    })
-//    .success(function(data, status, headers, config){
-//        alert(data);
-//    }).error(function(data, status, headers, config){
-//        alert("error");
-//    });
-
-    $scope.opes = ['0', '1', '2', '3'];
-
-    $scope.lotsAry = [
-        {"short_lot_id":"68P41051","lot_judge_stat":"COMP","max_date_time":140112093928},
-        {"short_lot_id":"50P41078","lot_judge_stat":"COMP","max_date_time":140112070329},
-        {"short_lot_id":"71E41001","lot_judge_stat":"COMP","max_date_time":140112073413},
-        {"short_lot_id":"42P41065","lot_judge_stat":"COMP","max_date_time":140112124646},
-        {"short_lot_id":"42P41064","lot_judge_stat":"COMP","max_date_time":140112130132},
-        {"short_lot_id":"35P41001","lot_judge_stat":"COMP","max_date_time":140112134940}
-    ];
-
-    $scope.getLotByOpe = function( index ){
+    $scope.getLotsByOpe = function(index){
+        $scope.selectedOpe = index;
         console.log("click index %d", index);
+
         $scope.lots = [];
-        $scope.lots.push($scope.lotsAry[index]);
-        console.log($scope.lots);
+        $http.get("/getLotsByOpe", {
+            ope : $scope.opes[index]
+        })
+        .success(function(data, status, headers, config){
+            $scope.lots = data;
+        }).error(function(data, status, headers, config){
+            console.log("error [%s].", data);
+        });
+    };
+
+    $scope.getGlassbyLot = function(index){
+        $scope.selectedLot = index;
+
     };
 });
